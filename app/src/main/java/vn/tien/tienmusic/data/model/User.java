@@ -1,10 +1,17 @@
 package vn.tien.tienmusic.data.model;
 
+import android.widget.ImageView;
+
+import androidx.databinding.BaseObservable;
+import androidx.databinding.Bindable;
+import androidx.databinding.BindingAdapter;
+
+import com.bumptech.glide.Glide;
 import com.google.gson.annotations.SerializedName;
 
-public class User {
+public class User extends BaseObservable {
     @SerializedName("id")
-    private int mId;
+    private long mId;
 
     @SerializedName("username")
     private String mUserName;
@@ -12,23 +19,21 @@ public class User {
     @SerializedName("avatar_url")
     private String mAvatarUrl;
 
-    public User(int id, String userName, String avatarUrl) {
+    public User(long id, String userName, String avatarUrl) {
         mId = id;
         mUserName = userName;
         mAvatarUrl = avatarUrl;
     }
 
-    public User() {
-    }
-
-    public int getId() {
+    public long getId() {
         return mId;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         mId = id;
     }
 
+    @Bindable
     public String getUserName() {
         return mUserName;
     }
@@ -37,8 +42,14 @@ public class User {
         mUserName = userName;
     }
 
+    @Bindable
     public String getAvatarUrl() {
         return mAvatarUrl;
+    }
+
+    @BindingAdapter({"mAvatarUrl"})
+    public static void loadImage(ImageView view, String imagUrl) {
+        Glide.with(view.getContext()).load(imagUrl).into(view);
     }
 
     public void setAvatarUrl(String avatarUrl) {

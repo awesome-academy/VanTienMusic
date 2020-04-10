@@ -7,6 +7,11 @@ buildscript {
         jcenter()
         
     }
+
+    ext {
+        roomVersion = '2.2.5'
+        archLifecycleVersion = '2.2.0'
+    }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.6.1'
         

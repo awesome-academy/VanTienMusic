@@ -3,8 +3,6 @@ package vn.tien.tienmusic.viewmodel;
 import android.content.Context;
 import android.widget.Toast;
 
-import androidx.databinding.ObservableArrayList;
-import androidx.databinding.ObservableList;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -24,11 +22,11 @@ public class SongViewModel extends ViewModel {
     private CompositeDisposable mCompositeDisposable;
     private SongRepository mRepository;
     private Context mContext;
-    private ObservableList<Song> mSongObservableList = new ObservableArrayList<>();
 
     public void initViewModel(Context context) {
         mCompositeDisposable = new CompositeDisposable();
-        mRepository = SongRepository.getInstance(SongRemoteData.getInstance(mContext));
+        mRepository = SongRepository.getInstance(SongRemoteData.getInstance(context));
+        mContext = context;
     }
 
     public LiveData<List<Song>> getSongs() {
@@ -43,9 +41,14 @@ public class SongViewModel extends ViewModel {
         Disposable disposable = mRepository.getAllSongs()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(response -> mSongObservableList.addAll(response),
+                .subscribe(response -> handleReponse(response),
                         error -> handleError(error));
         mCompositeDisposable.add(disposable);
+
+    }
+
+    private void handleReponse(List<Song> response) {
+        mData.setValue(response);
     }
 
     private void handleError(Throwable error) {

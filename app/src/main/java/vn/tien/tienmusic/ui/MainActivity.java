@@ -37,7 +37,10 @@ public class MainActivity extends AppCompatActivity {
         mBottomNavView = mMainBinding.botNav;
         loadFragment(new TrackFragment());
         mActionBar = getSupportActionBar();
-        mActionBar.setTitle(R.string.track);
+        mActionBar.setTitle(R.string.menu_track);
+        mActionBar.setDisplayShowHomeEnabled(true);
+        mActionBar.setLogo(R.drawable.ic_music_note_black_24dp);
+        mActionBar.setDisplayUseLogoEnabled(true);
     }
 
     private void setSeclectBotNavView() {
@@ -48,17 +51,17 @@ public class MainActivity extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.item_track:
                         fragment = new TrackFragment();
-                        mActionBar.setTitle(R.string.track);
+                        mActionBar.setTitle(R.string.menu_track);
                         loadFragment(fragment);
                         return true;
                     case R.id.item_personal:
                         fragment = new PersonalFragment();
-                        mActionBar.setTitle(R.string.my_music);
+                        mActionBar.setTitle(R.string.title_my_music);
                         loadFragment(fragment);
                         return true;
                     case R.id.item_favorite:
                         fragment = new FavoriteFragment();
-                        mActionBar.setTitle(R.string.favorite);
+                        mActionBar.setTitle(R.string.title_favorite);
                         loadFragment(fragment);
                         return true;
                 }
