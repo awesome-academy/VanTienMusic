@@ -3,13 +3,13 @@
     <item
         android:id="@+id/item_track"
         android:icon="@drawable/ic_music_note_black_24dp"
-        android:title="@string/track" />
+        android:title="@string/title_track" />
     <item
         android:id="@+id/item_personal"
         android:icon="@drawable/ic_person_black_24dp"
-        android:title="@string/my_music" />
+        android:title="@string/title_my_music" />
     <item
         android:id="@+id/item_favorite"
         android:icon="@drawable/ic_favorite_black_24dp"
-        android:title="@string/favorite" />
+        android:title="@string/title_favorite" />
 </menu>

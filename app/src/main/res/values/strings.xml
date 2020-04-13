@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">TienMusic</string>
-    <string name="favorite">Favorite</string>
-    <string name="track">Track</string>
-    <string name="my_music">My music</string>
+    <string name="title_favorite">Favorite</string>
+    <string name="title_track">Track</string>
+    <string name="title_my_music">My music</string>
+    <string name="action_play_music_random">Play Music Random</string>
 </resources>
