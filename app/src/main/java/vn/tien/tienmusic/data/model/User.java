@@ -1,5 +1,7 @@
 package vn.tien.tienmusic.data.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.widget.ImageView;
 
 import androidx.databinding.BaseObservable;
@@ -9,7 +11,7 @@ import androidx.databinding.BindingAdapter;
 import com.bumptech.glide.Glide;
 import com.google.gson.annotations.SerializedName;
 
-public class User extends BaseObservable {
+public class User extends BaseObservable implements Parcelable {
     @SerializedName("id")
     private long mId;
 
@@ -24,6 +26,18 @@ public class User extends BaseObservable {
         mUserName = userName;
         mAvatarUrl = avatarUrl;
     }
+
+    public static final Creator<User> CREATOR = new Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel in) {
+            return new User(in);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
 
     public long getId() {
         return mId;
@@ -54,5 +68,23 @@ public class User extends BaseObservable {
 
     public void setAvatarUrl(String avatarUrl) {
         mAvatarUrl = avatarUrl;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(mAvatarUrl);
+        parcel.writeString(mUserName);
+        parcel.writeLong(mId);
+    }
+
+    private User(Parcel in) {
+        mAvatarUrl = in.readString();
+        mUserName = in.readString();
+        mId = in.readLong();
     }
 }

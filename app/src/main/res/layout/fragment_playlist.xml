@@ -17,7 +17,7 @@
             android:id="@+id/card_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardBackgroundColor="#212121"
+            app:cardBackgroundColor="@color/color_black"
             app:cardCornerRadius="@dimen/dp_40">
 
             <RelativeLayout
@@ -92,7 +92,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/card_view"
             android:layout_marginTop="@dimen/dp_16"
-            android:text="Bài hát tương tự"
+            android:text="@string/title_playlist"
             android:textColor="@color/color_white"
             android:textSize="@dimen/dp_24" />
 

@@ -8,4 +8,5 @@
     <string name="title_title">Title :</string>
     <string name="title_artist">Artist :</string>
     <string name="title_genre">Genre :</string>
+    <string name="title_playlist">Playlist</string>
 </resources>

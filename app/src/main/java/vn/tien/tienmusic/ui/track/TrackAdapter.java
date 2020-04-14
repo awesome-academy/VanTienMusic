@@ -1,6 +1,5 @@
 package vn.tien.tienmusic.ui.track;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +12,7 @@ import java.util.List;
 
 import vn.tien.tienmusic.R;
 import vn.tien.tienmusic.data.model.Song;
+import vn.tien.tienmusic.data.model.User;
 import vn.tien.tienmusic.databinding.ItemTrackBinding;
 
 
@@ -26,7 +26,7 @@ public class TrackAdapter extends RecyclerView.Adapter<TrackAdapter.TrackHoder> 
     }
 
     public interface OnClickListener {
-        void onClick(Song song);
+        void onClick(Song song, User user);
     }
 
     public void setClickListener(OnClickListener clickListener) {
@@ -62,8 +62,8 @@ public class TrackAdapter extends RecyclerView.Adapter<TrackAdapter.TrackHoder> 
             binding.getRoot().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (mClickListener != null){
-                        mClickListener.onClick(mBinding.getSong());
+                    if (mClickListener != null) {
+                        mClickListener.onClick(mBinding.getSong(), mBinding.getSong().getUser());
                     }
                 }
             });

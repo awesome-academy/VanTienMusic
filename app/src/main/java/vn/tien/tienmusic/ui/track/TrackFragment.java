@@ -21,6 +21,7 @@ import java.util.List;
 import vn.tien.tienmusic.R;
 import vn.tien.tienmusic.constant.Constant;
 import vn.tien.tienmusic.data.model.Song;
+import vn.tien.tienmusic.data.model.User;
 import vn.tien.tienmusic.databinding.FragmentTrackBinding;
 import vn.tien.tienmusic.ui.play.PlayMusicActivity;
 import vn.tien.tienmusic.viewmodel.SongViewModel;
@@ -61,16 +62,11 @@ public class TrackFragment extends Fragment {
         mRecyclerSongs.setItemViewCacheSize(Constant.CACHE_SIZE);
         mTrackAdapter.setClickListener(new TrackAdapter.OnClickListener() {
             @Override
-            public void onClick(Song song) {
+            public void onClick(Song song, User user) {
                 Intent intent = PlayMusicActivity.getIntent(getContext());
                 Bundle bundle = new Bundle();
-                bundle.putString(Constant.KEY_TITLE, song.getTitle());
-                bundle.putInt(Constant.KEY_DURATION, song.getDuration());
-                bundle.putString(Constant.KEY_ARTIST, song.getUser().getUserName());
-                bundle.putString(Constant.KEY_LINK, song.getPermalinkUrl());
-                bundle.putString(Constant.KEY_AVATAR, song.getUser().getAvatarUrl());
-                bundle.putString(Constant.KEY_TRACKTYPE, song.getTrackType());
-                bundle.putString(Constant.KEY_GENRE, song.getGenre());
+                bundle.putParcelable(Constant.BUNDLE_SONG, song);
+                bundle.putParcelable(Constant.BUNDLE_USER, user);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
