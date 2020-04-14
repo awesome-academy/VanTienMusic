@@ -2,7 +2,6 @@ package vn.tien.tienmusic.data.model;
 
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
-import androidx.databinding.library.baseAdapters.BR;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -14,16 +13,19 @@ public class Song extends BaseObservable {
     private String mTitle;
 
     @SerializedName("duration")
-    private long mDuration;
+    private int mDuration;
 
     @SerializedName("permalink_url")
     private String mPermalinkUrl;
 
-    @SerializedName("waveform_url")
-    private String mWaveFormUrl;
-
     @SerializedName("user")
     private User mUser;
+
+    @SerializedName("genre")
+    private String mGenre;
+
+    @SerializedName("track_type")
+    private String mTrackType;
 
     public Song() {
     }
@@ -48,11 +50,11 @@ public class Song extends BaseObservable {
     }
 
     @Bindable
-    public long getDuration() {
+    public int getDuration() {
         return mDuration;
     }
 
-    public void setDuration(long duration) {
+    public void setDuration(int duration) {
         mDuration = duration;
     }
 
@@ -66,15 +68,6 @@ public class Song extends BaseObservable {
     }
 
     @Bindable
-    public String getWaveFormUrl() {
-        return mWaveFormUrl;
-    }
-
-    public void setWaveFormUrl(String waveFormUrl) {
-        mWaveFormUrl = waveFormUrl;
-    }
-
-    @Bindable
     public User getUser() {
         return mUser;
     }
@@ -83,12 +76,30 @@ public class Song extends BaseObservable {
         mUser = user;
     }
 
-    public Song(long id, String title, long duration, String permalinkUrl, String waveFormUrl, User user) {
+    public String getGenre() {
+        return mGenre;
+    }
+
+    public void setGenre(String genre) {
+        mGenre = genre;
+    }
+
+    public String getTrackType() {
+        return mTrackType;
+    }
+
+    public void setTrackType(String trackType) {
+        mTrackType = trackType;
+    }
+
+    public Song(long id, String title, int duration, String permalinkUrl,
+                User user, String genre, String trackType) {
         mId = id;
         mTitle = title;
         mDuration = duration;
         mPermalinkUrl = permalinkUrl;
-        mWaveFormUrl = waveFormUrl;
         mUser = user;
+        mGenre = genre;
+        mTrackType = trackType;
     }
 }
