@@ -3,12 +3,14 @@ package vn.tien.tienmusic.ui.play;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
+import androidx.viewpager.widget.ViewPager;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -25,6 +27,10 @@ public class PlayMusicActivity extends AppCompatActivity {
     private TextView mTextDuration, mTextTime;
     private Song mSong;
     private User mUser;
+    private static ViewPagerPlayScreen sPagerPlayScreen;
+    private AvatarFragment mAvatarFragment;
+    private PlayListFragment mPlayListFragment;
+    private ViewPager mViewPager;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -33,6 +39,38 @@ public class PlayMusicActivity extends AppCompatActivity {
         initView();
         getData();
         setToolbar();
+        customViewPager();
+        setDatatoViewPager();
+    }
+
+    private void setDatatoViewPager() {
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (sPagerPlayScreen.getItem(0) != null) {
+                    mAvatarFragment.setAvatar(mUser.getAvatarUrl());
+                    handler.removeCallbacks(this);
+                }
+                if (sPagerPlayScreen.getItem(1) != null) {
+                    mPlayListFragment.setDatatoView(
+                            mSong.getTitle(),
+                            mUser.getUserName(),
+                            mSong.getGenre(),
+                            mSong.getTrackType());
+                    handler.removeCallbacks(this);
+                }
+            }
+        }, Constant.EVENT_DELAY);
+    }
+
+    private void customViewPager() {
+        mAvatarFragment = new AvatarFragment();
+        mPlayListFragment = new PlayListFragment();
+        sPagerPlayScreen = new ViewPagerPlayScreen(getSupportFragmentManager(), 2);
+        sPagerPlayScreen.addFragment(mAvatarFragment);
+        sPagerPlayScreen.addFragment(mPlayListFragment);
+        mViewPager.setAdapter(sPagerPlayScreen);
     }
 
     private void setToolbar() {
@@ -47,7 +85,7 @@ public class PlayMusicActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         mSong = bundle.getParcelable(Constant.BUNDLE_SONG);
         mUser = bundle.getParcelable(Constant.BUNDLE_USER);
-        mToolbar.setTitle(mUser.getUserName());
+        mToolbar.setTitle(mSong.getTitle());
         String time = new SimpleDateFormat(Constant.FORMAT_DATE)
                 .format(new Date(mSong.getDuration()));
         mTextDuration.setText(time);
@@ -62,6 +100,7 @@ public class PlayMusicActivity extends AppCompatActivity {
     private void initView() {
         mToolbar = mBinding.toolBarPlay;
         mTextDuration = mBinding.textDuration;
+        mViewPager = mBinding.viewPagerPlay;
     }
 
     public static Intent getIntent(Context context) {
