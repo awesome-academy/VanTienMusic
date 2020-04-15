@@ -129,11 +129,12 @@ public class Song extends BaseObservable implements Parcelable {
         }
     };
 
+    //thu tu doc va viet phai giong nhau
     private Song(Parcel in) {
         mTitle = in.readString();
         mGenre = in.readString();
-        mTrackType = in.readString();
         mPermalinkUrl = in.readString();
+        mTrackType = in.readString();
         mDuration = in.readInt();
     }
 }
