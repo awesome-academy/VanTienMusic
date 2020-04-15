@@ -1,12 +1,14 @@
 package vn.tien.tienmusic.data.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
-import androidx.databinding.library.baseAdapters.BR;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Song extends BaseObservable {
+public class Song extends BaseObservable implements Parcelable {
     @SerializedName("id")
     private long mId;
 
@@ -14,19 +16,19 @@ public class Song extends BaseObservable {
     private String mTitle;
 
     @SerializedName("duration")
-    private long mDuration;
+    private int mDuration;
 
     @SerializedName("permalink_url")
     private String mPermalinkUrl;
 
-    @SerializedName("waveform_url")
-    private String mWaveFormUrl;
-
     @SerializedName("user")
     private User mUser;
 
-    public Song() {
-    }
+    @SerializedName("genre")
+    private String mGenre;
+
+    @SerializedName("track_type")
+    private String mTrackType;
 
     @Bindable
     public long getId() {
@@ -43,16 +45,34 @@ public class Song extends BaseObservable {
 
     }
 
+    public Song(long id, String title, int duration, String permalinkUrl, User user, String genre, String trackType) {
+        mId = id;
+        mTitle = title;
+        mDuration = duration;
+        mPermalinkUrl = permalinkUrl;
+        mUser = user;
+        mGenre = genre;
+        mTrackType = trackType;
+    }
+
+    public User getUser() {
+        return mUser;
+    }
+
+    public void setUser(User user) {
+        mUser = user;
+    }
+
     public void setTitle(String title) {
         mTitle = title;
     }
 
     @Bindable
-    public long getDuration() {
+    public int getDuration() {
         return mDuration;
     }
 
-    public void setDuration(long duration) {
+    public void setDuration(int duration) {
         mDuration = duration;
     }
 
@@ -65,30 +85,55 @@ public class Song extends BaseObservable {
         mPermalinkUrl = permalinkUrl;
     }
 
-    @Bindable
-    public String getWaveFormUrl() {
-        return mWaveFormUrl;
+
+    public String getGenre() {
+        return mGenre;
     }
 
-    public void setWaveFormUrl(String waveFormUrl) {
-        mWaveFormUrl = waveFormUrl;
+    public void setGenre(String genre) {
+        mGenre = genre;
     }
 
-    @Bindable
-    public User getUser() {
-        return mUser;
+    public String getTrackType() {
+        return mTrackType;
     }
 
-    public void setUser(User user) {
-        mUser = user;
+    public void setTrackType(String trackType) {
+        mTrackType = trackType;
     }
 
-    public Song(long id, String title, long duration, String permalinkUrl, String waveFormUrl, User user) {
-        mId = id;
-        mTitle = title;
-        mDuration = duration;
-        mPermalinkUrl = permalinkUrl;
-        mWaveFormUrl = waveFormUrl;
-        mUser = user;
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(mTitle);
+        parcel.writeString(mGenre);
+        parcel.writeString(mPermalinkUrl);
+        parcel.writeString(mTrackType);
+        parcel.writeInt(mDuration);
+    }
+
+    public static final Parcelable.Creator<Song> CREATOR = new Parcelable.Creator<Song>() {
+
+        @Override
+        public Song createFromParcel(Parcel parcel) {
+            return new Song(parcel);
+        }
+
+        @Override
+        public Song[] newArray(int i) {
+            return new Song[i];
+        }
+    };
+
+    private Song(Parcel in) {
+        mTitle = in.readString();
+        mGenre = in.readString();
+        mTrackType = in.readString();
+        mPermalinkUrl = in.readString();
+        mDuration = in.readInt();
     }
 }

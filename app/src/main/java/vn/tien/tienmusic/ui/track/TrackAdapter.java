@@ -1,6 +1,7 @@
 package vn.tien.tienmusic.ui.track;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -11,14 +12,25 @@ import java.util.List;
 
 import vn.tien.tienmusic.R;
 import vn.tien.tienmusic.data.model.Song;
+import vn.tien.tienmusic.data.model.User;
 import vn.tien.tienmusic.databinding.ItemTrackBinding;
 
 
 public class TrackAdapter extends RecyclerView.Adapter<TrackAdapter.TrackHoder> {
     private List<Song> mSongs;
+    private static OnClickListener mClickListener;
 
     public void setData(List<Song> songs) {
         mSongs = songs;
+        notifyDataSetChanged();
+    }
+
+    public interface OnClickListener {
+        void onClick(Song song, User user);
+    }
+
+    public void setClickListener(OnClickListener clickListener) {
+        mClickListener = clickListener;
     }
 
     @NonNull
@@ -38,21 +50,30 @@ public class TrackAdapter extends RecyclerView.Adapter<TrackAdapter.TrackHoder> 
 
     @Override
     public int getItemCount() {
-        return mSongs ==null ? 0:mSongs.size();
+        return mSongs == null ? 0 : mSongs.size();
     }
 
-    class TrackHoder extends RecyclerView.ViewHolder {
-
+    static class TrackHoder extends RecyclerView.ViewHolder {
         private final ItemTrackBinding mBinding;
 
         public TrackHoder(final ItemTrackBinding binding) {
             super(binding.getRoot());
             mBinding = binding;
+            binding.getRoot().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (mClickListener != null) {
+                        mClickListener.onClick(mBinding.getSong(), mBinding.getSong().getUser());
+                    }
+                }
+            });
         }
+
 
         public void bind(Song song) {
             mBinding.setSong(song);
             mBinding.executePendingBindings();
         }
+
     }
 }
