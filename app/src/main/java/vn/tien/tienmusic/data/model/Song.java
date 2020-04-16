@@ -137,4 +137,5 @@ public class Song extends BaseObservable implements Parcelable {
         mTrackType = in.readString();
         mDuration = in.readInt();
     }
+
 }
