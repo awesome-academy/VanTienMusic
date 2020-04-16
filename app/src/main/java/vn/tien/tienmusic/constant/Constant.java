@@ -7,4 +7,6 @@ public class Constant {
     public static final String BUNDLE_SONG = "song";
     public static final int EVENT_DELAY = 100;
     public static final String BUNDLE_USER = "user";
+    public static final int ANIMATOR_DURATION_TIME = 10000;
+    public static final String TYPE_ANIMATOR = "rotation";
 }

@@ -11,26 +11,23 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import vn.tien.tienmusic.R;
+import vn.tien.tienmusic.constant.ClickListenerItem;
 import vn.tien.tienmusic.data.model.Song;
-import vn.tien.tienmusic.data.model.User;
 import vn.tien.tienmusic.databinding.ItemTrackBinding;
 
 
 public class TrackAdapter extends RecyclerView.Adapter<TrackAdapter.TrackHoder> {
     private List<Song> mSongs;
-    private static OnClickListener mClickListener;
+    private static ClickListenerItem sClickListener;
 
     public void setData(List<Song> songs) {
         mSongs = songs;
         notifyDataSetChanged();
     }
 
-    public interface OnClickListener {
-        void onClick(Song song, User user);
-    }
 
-    public void setClickListener(OnClickListener clickListener) {
-        mClickListener = clickListener;
+    public void setClickListener(ClickListenerItem clickListener) {
+        sClickListener = clickListener;
     }
 
     @NonNull
@@ -62,8 +59,8 @@ public class TrackAdapter extends RecyclerView.Adapter<TrackAdapter.TrackHoder> 
             binding.getRoot().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (mClickListener != null) {
-                        mClickListener.onClick(mBinding.getSong(), mBinding.getSong().getUser());
+                    if (sClickListener != null) {
+                        sClickListener.onClick(mBinding.getSong(), mBinding.getSong().getUser());
                     }
                 }
             });

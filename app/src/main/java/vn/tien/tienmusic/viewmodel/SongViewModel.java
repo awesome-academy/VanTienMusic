@@ -44,7 +44,6 @@ public class SongViewModel extends ViewModel {
                 .subscribe(response -> handleReponse(response),
                         error -> handleError(error));
         mCompositeDisposable.add(disposable);
-
     }
 
     private void handleReponse(List<Song> response) {

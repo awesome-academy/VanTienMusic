@@ -24,19 +24,19 @@
             android:id="@+id/view_pager_play"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_0"
-            android:layout_weight="7"></androidx.viewpager.widget.ViewPager>
+            android:layout_weight="8"></androidx.viewpager.widget.ViewPager>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_0"
-            android:layout_weight="3">
+            android:layout_gravity="bottom"
+            android:layout_weight="2">
 
             <SeekBar
                 android:id="@+id/seek_bar"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_32"
-                android:layout_marginTop="@dimen/dp_80"
                 android:layout_marginEnd="@dimen/dp_32"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -123,47 +123,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/seek_bar" />
 
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="@dimen/dp_32"
-                android:layout_height="@dimen/dp_32"
-                android:layout_marginStart="@dimen/dp_32"
-                android:layout_marginTop="@dimen/dp_24"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_favorite_border_black_24dp" />
-
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="@dimen/dp_32"
-                android:layout_height="@dimen/dp_32"
-                android:layout_marginStart="@dimen/dp_60"
-                android:layout_marginTop="@dimen/dp_24"
-                app:layout_constraintStart_toEndOf="@+id/imageView"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_file_download_black_24dp" />
-
-            <ImageView
-                android:id="@+id/imageView4"
-                android:layout_width="@dimen/dp_32"
-                android:layout_height="@dimen/dp_32"
-                android:layout_marginStart="@dimen/dp_60"
-                android:layout_marginTop="@dimen/dp_24"
-                android:layout_marginEnd="@dimen/dp_60"
-                app:layout_constraintEnd_toStartOf="@+id/imageView5"
-                app:layout_constraintStart_toEndOf="@+id/imageView2"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_share_black_24dp" />
-
-            <ImageView
-                android:id="@+id/imageView5"
-                android:layout_width="@dimen/dp_32"
-                android:layout_height="@dimen/dp_32"
-                android:layout_marginTop="@dimen/dp_24"
-                android:layout_marginEnd="@dimen/dp_32"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_info_outline_black_24dp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>

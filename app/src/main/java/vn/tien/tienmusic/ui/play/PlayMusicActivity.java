@@ -80,7 +80,6 @@ public class PlayMusicActivity extends AppCompatActivity {
         mToolbar.setNavigationIcon(R.drawable.ic_keyboard_backspace_black_24dp);
     }
 
-
     private void getData() {
         Bundle bundle = getIntent().getExtras();
         mSong = bundle.getParcelable(Constant.BUNDLE_SONG);
@@ -94,7 +93,7 @@ public class PlayMusicActivity extends AppCompatActivity {
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
-        return true;
+        return super.onSupportNavigateUp();
     }
 
     private void initView() {
