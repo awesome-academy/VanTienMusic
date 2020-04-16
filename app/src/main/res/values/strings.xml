@@ -9,4 +9,7 @@
     <string name="title_artist">Artist :</string>
     <string name="title_genre">Genre :</string>
     <string name="title_playlist">Playlist</string>
+    <string name="action_download">Download</string>
+    <string name="action_favorite">Favorite</string>
+    <string name="action_share">Share</string>
 </resources>

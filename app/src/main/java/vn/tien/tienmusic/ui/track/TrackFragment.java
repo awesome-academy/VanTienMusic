@@ -62,7 +62,6 @@ public class TrackFragment extends Fragment {
                 DividerItemDecoration.VERTICAL);
         mRecyclerSongs.addItemDecoration(dividerItemDecoration);
         mRecyclerSongs.setItemViewCacheSize(Constant.CACHE_SIZE);
-
         mTrackAdapter.setClickListener(new ClickListenerItem() {
             @Override
             public void onClick(Song song, User user) {

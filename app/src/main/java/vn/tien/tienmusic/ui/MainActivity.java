@@ -3,11 +3,13 @@ package vn.tien.tienmusic.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -23,7 +25,8 @@ import vn.tien.tienmusic.ui.track.TrackFragment;
 public class MainActivity extends AppCompatActivity {
     private BottomNavigationView mBottomNavView;
     private ActivityMainBinding mMainBinding;
-    private ActionBar mActionBar;
+    private SearchView mSearchView;
+    private Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,16 +34,25 @@ public class MainActivity extends AppCompatActivity {
         mMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         initView();
         setSeclectBotNavView();
+        setUpToolBar();
+    }
+
+    private void setUpToolBar() {
+        setSupportActionBar(mToolbar);
+        mToolbar.setTitle(R.string.app_name);
+        mToolbar.setNavigationIcon(R.drawable.ic_music_note_black_24dp);
     }
 
     private void initView() {
         mBottomNavView = mMainBinding.botNav;
+        mToolbar = mMainBinding.toolBarMain;
         loadFragment(new TrackFragment());
-        mActionBar = getSupportActionBar();
-        mActionBar.setTitle(R.string.title_track);
-        mActionBar.setDisplayShowHomeEnabled(true);
-        mActionBar.setLogo(R.drawable.ic_music_note_black_24dp);
-        mActionBar.setDisplayUseLogoEnabled(true);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     private void setSeclectBotNavView() {
@@ -51,17 +63,14 @@ public class MainActivity extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.item_track:
                         fragment = new TrackFragment();
-                        mActionBar.setTitle(R.string.title_track);
                         loadFragment(fragment);
                         return true;
                     case R.id.item_personal:
                         fragment = new PersonalFragment();
-                        mActionBar.setTitle(R.string.title_my_music);
                         loadFragment(fragment);
                         return true;
                     case R.id.item_favorite:
                         fragment = new FavoriteFragment();
-                        mActionBar.setTitle(R.string.title_favorite);
                         loadFragment(fragment);
                         return true;
                 }

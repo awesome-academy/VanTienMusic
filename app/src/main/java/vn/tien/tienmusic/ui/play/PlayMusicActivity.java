@@ -1,9 +1,14 @@
 package vn.tien.tienmusic.ui.play;
 
+import android.app.Service;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
+import android.view.Menu;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -12,14 +17,13 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.viewpager.widget.ViewPager;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import vn.tien.tienmusic.R;
+import vn.tien.tienmusic.Utils.StringUtils;
 import vn.tien.tienmusic.constant.Constant;
 import vn.tien.tienmusic.data.model.Song;
 import vn.tien.tienmusic.data.model.User;
 import vn.tien.tienmusic.databinding.ActivityPlayBinding;
+import vn.tien.tienmusic.service.PlayMusicService;
 
 public class PlayMusicActivity extends AppCompatActivity {
     private ActivityPlayBinding mBinding;
@@ -31,6 +35,9 @@ public class PlayMusicActivity extends AppCompatActivity {
     private AvatarFragment mAvatarFragment;
     private PlayListFragment mPlayListFragment;
     private ViewPager mViewPager;
+    private ServiceConnection mServiceConnection;
+    private Boolean mBound;
+    private PlayMusicService mMusicService;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -41,6 +48,25 @@ public class PlayMusicActivity extends AppCompatActivity {
         setToolbar();
         customViewPager();
         setDatatoViewPager();
+        bindtoService();
+    }
+
+    private void bindtoService() {
+        mServiceConnection = new ServiceConnection() {
+            @Override
+            public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+                PlayMusicService.MusicBinder musicBinder = (PlayMusicService.MusicBinder) iBinder;
+                mMusicService = musicBinder.getService();
+                mBound = true;
+            }
+
+            @Override
+            public void onServiceDisconnected(ComponentName componentName) {
+                mBound = false;
+            }
+        };
+        Intent intent = new Intent(this, PlayMusicService.class);
+        bindService(intent, mServiceConnection, Service.BIND_AUTO_CREATE);
     }
 
     private void setDatatoViewPager() {
@@ -85,8 +111,7 @@ public class PlayMusicActivity extends AppCompatActivity {
         mSong = bundle.getParcelable(Constant.BUNDLE_SONG);
         mUser = bundle.getParcelable(Constant.BUNDLE_USER);
         mToolbar.setTitle(mSong.getTitle());
-        String time = new SimpleDateFormat(Constant.FORMAT_DATE)
-                .format(new Date(mSong.getDuration()));
+        String time = StringUtils.formatDuration(mSong.getDuration());
         mTextDuration.setText(time);
     }
 
@@ -94,6 +119,12 @@ public class PlayMusicActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return super.onSupportNavigateUp();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.play_music_menu, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     private void initView() {
@@ -105,5 +136,12 @@ public class PlayMusicActivity extends AppCompatActivity {
     public static Intent getIntent(Context context) {
         Intent intent = new Intent(context, PlayMusicActivity.class);
         return intent;
+    }
+
+    @Override
+    protected void onDestroy() {
+        unbindService(mServiceConnection);
+        mBound = false;
+        super.onDestroy();
     }
 }

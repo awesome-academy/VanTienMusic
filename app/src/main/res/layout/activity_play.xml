@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:title=" "
-            app:titleTextColor="@color/color_white" />
+            app:titleTextColor="@color/color_black" />
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/view_pager_play"
@@ -43,15 +43,15 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/image_play"
-                android:layout_width="@dimen/dp_40"
-                android:layout_height="@dimen/dp_40"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_24"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/seek_bar"
-                app:srcCompat="@drawable/ic_play_circle_outline_black_24dp" />
+                app:srcCompat="@drawable/ic_play_arrow_black_24dp" />
 
             <ImageView
                 android:id="@+id/image_random"
