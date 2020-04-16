@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import vn.tien.tienmusic.R;
+import vn.tien.tienmusic.constant.ClickListenerItem;
 import vn.tien.tienmusic.constant.Constant;
 import vn.tien.tienmusic.data.model.Song;
 import vn.tien.tienmusic.data.model.User;
@@ -57,10 +58,12 @@ public class TrackFragment extends Fragment {
         mRecyclerSongs.setAdapter(mTrackAdapter);
         mRecyclerSongs.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerSongs.setHasFixedSize(true);
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(),
+                DividerItemDecoration.VERTICAL);
         mRecyclerSongs.addItemDecoration(dividerItemDecoration);
         mRecyclerSongs.setItemViewCacheSize(Constant.CACHE_SIZE);
-        mTrackAdapter.setClickListener(new TrackAdapter.OnClickListener() {
+
+        mTrackAdapter.setClickListener(new ClickListenerItem() {
             @Override
             public void onClick(Song song, User user) {
                 Intent intent = PlayMusicActivity.getIntent(getContext());
