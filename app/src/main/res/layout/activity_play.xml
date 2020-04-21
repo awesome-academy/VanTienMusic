@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <variable
+            name="playmusic"
+            type="vn.tien.tienmusic.ui.play.PlayMusicActivity" />
     </data>
 
     <LinearLayout
@@ -51,7 +53,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/seek_bar"
-                app:srcCompat="@drawable/ic_play_arrow_black_24dp" />
+                app:srcCompat="@drawable/level_list_play_pause" />
 
             <ImageView
                 android:id="@+id/image_random"
@@ -93,7 +95,7 @@
                 app:layout_constraintHorizontal_bias="0.814"
                 app:layout_constraintStart_toEndOf="@+id/image_next"
                 app:layout_constraintTop_toBottomOf="@+id/seek_bar"
-                app:srcCompat="@drawable/ic_replay_black_24dp" />
+                app:srcCompat="@drawable/ic_loop_black_24dp" />
 
             <TextView
                 android:id="@+id/text_time"

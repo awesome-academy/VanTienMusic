@@ -21,6 +21,7 @@ public class PlayListAdapter extends RecyclerView.Adapter<PlayListAdapter.PlayLi
 
     public void setData(List<Song> songs) {
         mSongs = songs;
+        notifyDataSetChanged();
     }
 
     public void setListenerItem(ClickListenerItem listenerItem) {
@@ -57,8 +58,7 @@ public class PlayListAdapter extends RecyclerView.Adapter<PlayListAdapter.PlayLi
                 @Override
                 public void onClick(View view) {
                     if (sListenerItem != null) {
-                        sListenerItem.onClick(
-                                mTrackBinding.getSong(),
+                        sListenerItem.onClick(mTrackBinding.getSong(),
                                 mTrackBinding.getSong().getUser());
                     }
                 }

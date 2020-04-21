@@ -32,6 +32,7 @@ public class TrackFragment extends Fragment {
     private TrackAdapter mTrackAdapter;
     private FragmentTrackBinding mBinding;
     private SongViewModel mSongViewModel;
+    private Bundle mBundle;
 
     @Nullable
     @Override
@@ -39,10 +40,10 @@ public class TrackFragment extends Fragment {
         mBinding = DataBindingUtil.inflate(inflater,
                 R.layout.fragment_track, container, false);
         mBinding.setBinding(this);
+        mBundle = new Bundle();
         setUpRecycler();
         return mBinding.getRoot();
     }
-
 
     private void setUpRecycler() {
         mRecyclerSongs = mBinding.recycleSongs;
@@ -66,10 +67,9 @@ public class TrackFragment extends Fragment {
             @Override
             public void onClick(Song song, User user) {
                 Intent intent = PlayMusicActivity.getIntent(getContext());
-                Bundle bundle = new Bundle();
-                bundle.putParcelable(Constant.BUNDLE_SONG, song);
-                bundle.putParcelable(Constant.BUNDLE_USER, user);
-                intent.putExtras(bundle);
+                mBundle.putParcelable(Constant.BUNDLE_SONG, song);
+                mBundle.putParcelable(Constant.BUNDLE_USER, user);
+                intent.putExtras(mBundle);
                 startActivity(intent);
             }
         });

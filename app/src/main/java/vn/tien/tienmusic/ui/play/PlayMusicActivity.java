@@ -18,7 +18,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.viewpager.widget.ViewPager;
 
 import vn.tien.tienmusic.R;
-import vn.tien.tienmusic.Utils.StringUtils;
+import vn.tien.tienmusic.utils.StringUtils;
 import vn.tien.tienmusic.constant.Constant;
 import vn.tien.tienmusic.data.model.Song;
 import vn.tien.tienmusic.data.model.User;

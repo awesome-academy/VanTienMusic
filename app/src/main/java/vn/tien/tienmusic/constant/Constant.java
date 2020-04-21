@@ -9,4 +9,5 @@ public class Constant {
     public static final String BUNDLE_USER = "user";
     public static final int ANIMATOR_DURATION_TIME = 10000;
     public static final String TYPE_ANIMATOR = "rotation";
+    public static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 23;
 }
