@@ -1,4 +1,4 @@
-package vn.tien.tienmusic.Utils;
+package vn.tien.tienmusic.utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

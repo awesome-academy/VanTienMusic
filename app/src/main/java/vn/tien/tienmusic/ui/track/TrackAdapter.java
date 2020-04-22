@@ -53,12 +53,14 @@ public class TrackAdapter extends RecyclerView.Adapter<TrackAdapter.TrackHoder> 
     static class TrackHoder extends RecyclerView.ViewHolder {
         private final ItemTrackBinding mBinding;
 
+
         public TrackHoder(final ItemTrackBinding binding) {
             super(binding.getRoot());
             mBinding = binding;
             binding.getRoot().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    int position = getAdapterPosition();
                     if (sClickListener != null) {
                         sClickListener.onClick(mBinding.getSong(), mBinding.getSong().getUser());
                     }
@@ -71,6 +73,5 @@ public class TrackAdapter extends RecyclerView.Adapter<TrackAdapter.TrackHoder> 
             mBinding.setSong(song);
             mBinding.executePendingBindings();
         }
-
     }
 }

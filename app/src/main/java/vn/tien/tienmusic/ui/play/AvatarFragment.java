@@ -17,6 +17,7 @@ import com.bumptech.glide.Glide;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import vn.tien.tienmusic.R;
+import vn.tien.tienmusic.constant.Constant;
 import vn.tien.tienmusic.databinding.FragmentAvatarBinding;
 
 public class AvatarFragment extends Fragment {
@@ -33,14 +34,15 @@ public class AvatarFragment extends Fragment {
         return mAvatarBinding.getRoot();
     }
 
+
     public void setAvatar(String url) {
         Glide.with(getContext()).load(url).into(mImageViewAvatar);
     }
 
     private void initView() {
         mImageViewAvatar = mAvatarBinding.imageAvatar;
-        mAnimator = ObjectAnimator.ofFloat(mImageViewAvatar, "rotation", 0f, 360f);
-        mAnimator.setDuration(10000);
+        mAnimator = ObjectAnimator.ofFloat(mImageViewAvatar, Constant.TYPE_ANIMATOR, 0f, 360f);
+        mAnimator.setDuration(Constant.ANIMATOR_DURATION_TIME);
         mAnimator.setRepeatMode(ValueAnimator.RESTART);
         mAnimator.setRepeatCount(ValueAnimator.INFINITE);
         mAnimator.setInterpolator(new LinearInterpolator());

@@ -8,6 +8,8 @@ import androidx.databinding.Bindable;
 
 import com.google.gson.annotations.SerializedName;
 
+import vn.tien.tienmusic.utils.StringUtils;
+
 public class Song extends BaseObservable implements Parcelable {
     @SerializedName("id")
     private long mId;
@@ -45,6 +47,9 @@ public class Song extends BaseObservable implements Parcelable {
 
     }
 
+    public Song() {
+    }
+
     public Song(long id, String title, int duration, String permalinkUrl, User user, String genre, String trackType) {
         mId = id;
         mTitle = title;
@@ -53,6 +58,13 @@ public class Song extends BaseObservable implements Parcelable {
         mUser = user;
         mGenre = genre;
         mTrackType = trackType;
+    }
+
+    public Song(long id, String title, int duration, User user) {
+        mId = id;
+        mTitle = title;
+        mDuration = duration;
+        mUser = user;
     }
 
     public User getUser() {
@@ -70,6 +82,10 @@ public class Song extends BaseObservable implements Parcelable {
     @Bindable
     public int getDuration() {
         return mDuration;
+    }
+
+    public String formatDuration(int duration) {
+        return StringUtils.formatDuration(duration);
     }
 
     public void setDuration(int duration) {

@@ -51,7 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:text="@{song.fomatDuration(song.duration)}"
+            android:text="@{song.formatDuration(song.duration)}"
             android:textSize="@dimen/dp_16" />
     </RelativeLayout>
 </layout>

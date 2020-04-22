@@ -52,7 +52,6 @@ public class PlayListFragment extends Fragment {
             @Override
             public void onChanged(List<Song> songs) {
                 mListAdapter.setData(songs);
-                mListAdapter.notifyDataSetChanged();
             }
         });
         mRecyclerPlaylist.setAdapter(mListAdapter);

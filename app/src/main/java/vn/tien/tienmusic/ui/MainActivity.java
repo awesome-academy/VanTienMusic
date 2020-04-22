@@ -19,7 +19,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import vn.tien.tienmusic.R;
 import vn.tien.tienmusic.databinding.ActivityMainBinding;
 import vn.tien.tienmusic.ui.favorite.FavoriteFragment;
-import vn.tien.tienmusic.ui.personal.PersonalFragment;
+import vn.tien.tienmusic.ui.mymusic.MyMusicFragment;
 import vn.tien.tienmusic.ui.track.TrackFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
                         loadFragment(fragment);
                         return true;
                     case R.id.item_personal:
-                        fragment = new PersonalFragment();
+                        fragment = new MyMusicFragment();
                         loadFragment(fragment);
                         return true;
                     case R.id.item_favorite:

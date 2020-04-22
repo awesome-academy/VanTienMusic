@@ -11,6 +11,8 @@ import androidx.databinding.BindingAdapter;
 import com.bumptech.glide.Glide;
 import com.google.gson.annotations.SerializedName;
 
+import vn.tien.tienmusic.R;
+
 public class User extends BaseObservable implements Parcelable {
     @SerializedName("id")
     private long mId;
@@ -25,6 +27,10 @@ public class User extends BaseObservable implements Parcelable {
         mId = id;
         mUserName = userName;
         mAvatarUrl = avatarUrl;
+    }
+
+    public User(String userName) {
+        mUserName = userName;
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {
@@ -63,7 +69,7 @@ public class User extends BaseObservable implements Parcelable {
 
     @BindingAdapter({"mAvatarUrl"})
     public static void loadImage(ImageView view, String imagUrl) {
-        Glide.with(view.getContext()).load(imagUrl).into(view);
+        Glide.with(view.getContext()).load(imagUrl).placeholder(R.drawable.cd).into(view);
     }
 
     public void setAvatarUrl(String avatarUrl) {
