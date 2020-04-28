@@ -36,7 +36,7 @@ public class AvatarFragment extends Fragment {
 
 
     public void setAvatar(String url) {
-        Glide.with(getContext()).load(url).into(mImageViewAvatar);
+        Glide.with(getContext()).load(url).placeholder(R.drawable.cd).into(mImageViewAvatar);
     }
 
     private void initView() {

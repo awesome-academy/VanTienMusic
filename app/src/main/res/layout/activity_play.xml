@@ -46,7 +46,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/image_play"
+                android:id="@+id/btn_play"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_24"
@@ -71,7 +71,7 @@
                 android:layout_height="@dimen/dp_32"
                 android:layout_marginTop="@dimen/dp_32"
                 android:layout_marginEnd="@dimen/dp_32"
-                app:layout_constraintEnd_toStartOf="@+id/image_play"
+                app:layout_constraintEnd_toStartOf="@+id/btn_play"
                 app:layout_constraintTop_toBottomOf="@+id/seek_bar"
                 app:srcCompat="@drawable/ic_skip_previous_black_24dp" />
 
@@ -81,7 +81,7 @@
                 android:layout_height="@dimen/dp_32"
                 android:layout_marginStart="@dimen/dp_32"
                 android:layout_marginTop="@dimen/dp_32"
-                app:layout_constraintStart_toEndOf="@+id/image_play"
+                app:layout_constraintStart_toEndOf="@+id/btn_play"
                 app:layout_constraintTop_toBottomOf="@+id/seek_bar"
                 app:srcCompat="@drawable/ic_skip_next_black_24dp" />
 

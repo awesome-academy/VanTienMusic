@@ -2,6 +2,7 @@ package vn.tien.tienmusic.ui.play;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import vn.tien.tienmusic.R;
@@ -33,6 +35,7 @@ public class PlayListFragment extends Fragment {
     private TextView mTextTitle, mTextArtist, mTextGenre;
     private PlayListAdapter mListAdapter;
     private SongViewModel mSongViewModel;
+    private Bundle mBundle;
 
     @Nullable
     @Override
@@ -41,6 +44,7 @@ public class PlayListFragment extends Fragment {
                 R.layout.fragment_playlist, container, false);
         initView();
         setUpRecycleView();
+        mBundle = new Bundle();
         return mPlaylistBinding.getRoot();
     }
 
@@ -52,6 +56,8 @@ public class PlayListFragment extends Fragment {
             @Override
             public void onChanged(List<Song> songs) {
                 mListAdapter.setData(songs);
+                mBundle.putParcelableArrayList(Constant.BUNDLE_LIST,
+                        (ArrayList<? extends Parcelable>) songs);
             }
         });
         mRecyclerPlaylist.setAdapter(mListAdapter);
@@ -63,12 +69,12 @@ public class PlayListFragment extends Fragment {
         mRecyclerPlaylist.setItemViewCacheSize(Constant.CACHE_SIZE);
         mListAdapter.setListenerItem(new ClickListenerItem() {
             @Override
-            public void onClick(Song song, User user) {
+            public void onClick(Song song, User user, int position) {
                 Intent intent = PlayMusicActivity.getIntent(getContext());
-                Bundle bundle = new Bundle();
-                bundle.putParcelable(Constant.BUNDLE_SONG, song);
-                bundle.putParcelable(Constant.BUNDLE_USER, user);
-                intent.putExtras(bundle);
+                mBundle.putParcelable(Constant.BUNDLE_SONG, song);
+                mBundle.putParcelable(Constant.BUNDLE_USER, user);
+                mBundle.putInt(Constant.POSITION_SONG, position);
+                intent.putExtras(mBundle);
                 startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
             }
         });
