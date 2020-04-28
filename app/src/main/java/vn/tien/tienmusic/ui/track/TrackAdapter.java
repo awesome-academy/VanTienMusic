@@ -19,6 +19,7 @@ import vn.tien.tienmusic.databinding.ItemTrackBinding;
 public class TrackAdapter extends RecyclerView.Adapter<TrackAdapter.TrackHoder> {
     private List<Song> mSongs;
     private static ClickListenerItem sClickListener;
+    private ItemTrackBinding mTrackBinding;
 
     public void setData(List<Song> songs) {
         mSongs = songs;
@@ -34,9 +35,9 @@ public class TrackAdapter extends RecyclerView.Adapter<TrackAdapter.TrackHoder> 
     @Override
     public TrackHoder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        ItemTrackBinding binding = DataBindingUtil.inflate(layoutInflater,
+        mTrackBinding = DataBindingUtil.inflate(layoutInflater,
                 R.layout.item_track, parent, false);
-        return new TrackHoder(binding);
+        return new TrackHoder(mTrackBinding);
     }
 
     @Override
@@ -60,9 +61,12 @@ public class TrackAdapter extends RecyclerView.Adapter<TrackAdapter.TrackHoder> 
             binding.getRoot().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    int position = getAdapterPosition();
+                    final int position = getAdapterPosition();
                     if (sClickListener != null) {
-                        sClickListener.onClick(mBinding.getSong(), mBinding.getSong().getUser());
+                        sClickListener.onClick(
+                                mBinding.getSong(),
+                                mBinding.getSong().getUser(),
+                                position);
                     }
                 }
             });

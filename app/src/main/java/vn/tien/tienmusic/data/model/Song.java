@@ -8,6 +8,7 @@ import androidx.databinding.Bindable;
 
 import com.google.gson.annotations.SerializedName;
 
+import vn.tien.tienmusic.constant.Constant;
 import vn.tien.tienmusic.utils.StringUtils;
 
 public class Song extends BaseObservable implements Parcelable {
@@ -20,8 +21,8 @@ public class Song extends BaseObservable implements Parcelable {
     @SerializedName("duration")
     private int mDuration;
 
-    @SerializedName("permalink_url")
-    private String mPermalinkUrl;
+    @SerializedName("stream_url")
+    private String mStreamUrl;
 
     @SerializedName("user")
     private User mUser;
@@ -44,26 +45,27 @@ public class Song extends BaseObservable implements Parcelable {
     @Bindable
     public String getTitle() {
         return mTitle;
-
     }
 
     public Song() {
     }
 
-    public Song(long id, String title, int duration, String permalinkUrl, User user, String genre, String trackType) {
+    public Song(long id, String title, int duration, String streamUrl, User user,
+                String genre, String trackType) {
         mId = id;
         mTitle = title;
         mDuration = duration;
-        mPermalinkUrl = permalinkUrl;
+        mStreamUrl = streamUrl;
         mUser = user;
         mGenre = genre;
         mTrackType = trackType;
     }
 
-    public Song(long id, String title, int duration, User user) {
+    public Song(long id, String title, int duration, String uri, User user) {
         mId = id;
         mTitle = title;
         mDuration = duration;
+        mStreamUrl = uri;
         mUser = user;
     }
 
@@ -74,6 +76,7 @@ public class Song extends BaseObservable implements Parcelable {
     public void setUser(User user) {
         mUser = user;
     }
+
 
     public void setTitle(String title) {
         mTitle = title;
@@ -93,14 +96,13 @@ public class Song extends BaseObservable implements Parcelable {
     }
 
     @Bindable
-    public String getPermalinkUrl() {
-        return mPermalinkUrl;
+    public String getStreamUrl() {
+        return mStreamUrl;
     }
 
-    public void setPermalinkUrl(String permalinkUrl) {
-        mPermalinkUrl = permalinkUrl;
+    public void setStreamUrl(String streamUrl) {
+        mStreamUrl = streamUrl + Constant.CLIENT_ID;
     }
-
 
     public String getGenre() {
         return mGenre;
@@ -125,9 +127,10 @@ public class Song extends BaseObservable implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeLong(mId);
         parcel.writeString(mTitle);
         parcel.writeString(mGenre);
-        parcel.writeString(mPermalinkUrl);
+        parcel.writeString(mStreamUrl);
         parcel.writeString(mTrackType);
         parcel.writeInt(mDuration);
     }
@@ -147,9 +150,10 @@ public class Song extends BaseObservable implements Parcelable {
 
     //thu tu doc va viet phai giong nhau
     private Song(Parcel in) {
+        mId = in.readLong();
         mTitle = in.readString();
         mGenre = in.readString();
-        mPermalinkUrl = in.readString();
+        mStreamUrl = in.readString();
         mTrackType = in.readString();
         mDuration = in.readInt();
     }

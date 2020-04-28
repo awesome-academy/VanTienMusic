@@ -1,6 +1,7 @@
 package vn.tien.tienmusic.ui.mymusic;
 
 import android.content.ContentResolver;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -20,16 +21,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
 
 import vn.tien.tienmusic.R;
+import vn.tien.tienmusic.constant.ClickListenerItem;
 import vn.tien.tienmusic.constant.Constant;
 import vn.tien.tienmusic.data.model.Song;
 import vn.tien.tienmusic.data.model.User;
 import vn.tien.tienmusic.databinding.FragmentMymusicBinding;
+import vn.tien.tienmusic.ui.play.PlayMusicActivity;
 
 public class MyMusicFragment extends Fragment {
-    private List<Song> mMyMusics = new ArrayList<>();
+    private ArrayList<Song> mMyMusics = new ArrayList<>();
     private User mUser;
     private FragmentMymusicBinding mMymusicBinding;
     private MyMusicAdapter mMusicAdapter;
@@ -61,6 +63,19 @@ public class MyMusicFragment extends Fragment {
                 return myMusic.getTitle().compareTo(t1.getTitle());
             }
         });
+        mMusicAdapter.setListenerItem(new ClickListenerItem() {
+            @Override
+            public void onClick(Song song, User user, int position) {
+                Intent intent = PlayMusicActivity.getIntent(getContext());
+                Bundle bundle = new Bundle();
+                bundle.putParcelable(Constant.BUNDLE_SONG, song);
+                bundle.putParcelable(Constant.BUNDLE_USER, user);
+                bundle.putParcelableArrayList(Constant.BUNDLE_LIST, mMyMusics);
+                bundle.putInt(Constant.POSITION_SONG, position);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
     }
 
     private void initView() {
@@ -83,13 +98,15 @@ public class MyMusicFragment extends Fragment {
             int idColumn = cursor.getColumnIndex(MediaStore.Audio.Media._ID);
             int artistColumn = cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST);
             int durationColumn = cursor.getColumnIndex(MediaStore.Audio.Media.DURATION);
+            int uriColumn = cursor.getColumnIndex(MediaStore.Audio.Media.DATA);
             do {
                 Long id = cursor.getLong(idColumn);
                 String title = cursor.getString(titleColumn);
                 String artist = cursor.getString(artistColumn);
                 int duration = cursor.getInt(durationColumn);
+                String uri = cursor.getString(uriColumn);
                 mUser = new User(artist);
-                mMyMusics.add(new Song(id, title, duration, mUser));
+                mMyMusics.add(new Song(id, title, duration, uri, mUser));
             }
             while (cursor.moveToNext());
         }

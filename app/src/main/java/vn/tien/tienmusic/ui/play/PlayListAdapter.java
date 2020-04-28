@@ -57,9 +57,11 @@ public class PlayListAdapter extends RecyclerView.Adapter<PlayListAdapter.PlayLi
             mTrackBinding.getRoot().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    int position = getAdapterPosition();
                     if (sListenerItem != null) {
-                        sListenerItem.onClick(mTrackBinding.getSong(),
-                                mTrackBinding.getSong().getUser());
+                        sListenerItem.onClick(
+                                mTrackBinding.getSong(),
+                                mTrackBinding.getSong().getUser(), position);
                     }
                 }
             });
